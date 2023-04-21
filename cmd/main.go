@@ -14,7 +14,7 @@ func main() {
 		log.Fatalf("config.New(): %v", err)
 	}
 
-	if err := composites.NewApp(cfg); err != nil {
+	if err := composites.New(cfg); err != nil {
 		log.Fatalf("NewApp(): %v", err)
 	}
 }

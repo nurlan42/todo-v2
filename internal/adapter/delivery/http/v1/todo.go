@@ -2,11 +2,11 @@ package v1
 
 import (
 	"fmt"
-	"github.com/nurlan42/todo/internal/domain/entity"
 	"net/http"
 	"runtime/debug"
 
 	"github.com/gin-gonic/gin"
+	"github.com/nurlan42/todo/internal/domain/entity"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -16,29 +16,9 @@ type TODOHandler struct {
 	log     log.Entry
 }
 
-func NewTODOHandler(s TODOService) *TODOHandler {
+func NewTODO(s TODOService) *TODOHandler {
 	return &TODOHandler{
 		service: s,
-	}
-}
-
-// @title Blueprint Swagger API
-// @version 1.0
-// @description Swagger API for Golang Project Blueprint.
-// @termsOfService http://swagger.io/terms/
-
-// @contact.name API Support
-// @contact.email martin7.heinz@gmail.com
-
-// @BasePath /api/v1/todo1
-func (h *TODOHandler) Init(r *gin.RouterGroup) {
-	td := r.Group("/todo")
-	{
-		td.POST("/", h.Create)
-		td.GET("/:id", h.GetByID)
-		td.GET("/", h.GetAll)
-		td.PUT("/:id", h.UpdateByID)
-		td.DELETE("/:id", h.DeleteByID)
 	}
 }
 
@@ -125,4 +105,24 @@ func (h *TODOHandler) DeleteByID(c *gin.Context) {
 	}
 
 	c.Status(http.StatusOK)
+}
+
+// @title Blueprint Swagger API
+// @version 1.0
+// @description Swagger API for Golang Project Blueprint.
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name API Support
+// @contact.email martin7.heinz@gmail.com
+
+// @BasePath /api/v1/todo1
+func (h *TODOHandler) Init(r *gin.RouterGroup) {
+	td := r.Group("/todo")
+	{
+		td.POST("/", h.Create)
+		td.GET("/:id", h.GetByID)
+		td.GET("/", h.GetAll)
+		td.PUT("/:id", h.UpdateByID)
+		td.DELETE("/:id", h.DeleteByID)
+	}
 }

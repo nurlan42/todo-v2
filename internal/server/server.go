@@ -16,12 +16,12 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func Run(cfg *config.Config, mux *gin.Engine) error {
+func Run(chttp config.HTTP, mux *gin.Engine) error {
 	httpSrv := http.Server{
-		Addr:         ":" + cfg.HTTP.Port,
+		Addr:         ":" + chttp.Port,
 		Handler:      mux,
-		ReadTimeout:  cfg.HTTP.ReadTimeout * time.Second,
-		WriteTimeout: cfg.HTTP.WriteTimeout * time.Second,
+		ReadTimeout:  chttp.ReadTimeout * time.Second,
+		WriteTimeout: chttp.WriteTimeout * time.Second,
 	}
 
 	ch := make(chan os.Signal, 1)
@@ -47,10 +47,6 @@ func Run(cfg *config.Config, mux *gin.Engine) error {
 	if err := httpSrv.Shutdown(ctx); err != nil {
 		return fmt.Errorf("failed to stop srv.Shutdown(): %s\n", err.Error())
 	}
-
-	//if err := sqlDB.Close(); err != nil {
-	//	return fmt.Errorf("failed to stop sqlDB: %s\n", err.Error())
-	//}
 
 	return nil
 }

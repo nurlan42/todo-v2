@@ -1,4 +1,4 @@
-package postgres
+package psql
 
 import (
 	"fmt"
@@ -50,10 +50,12 @@ func (t *TODO) GetAll() ([]entity.TODO, error) {
 	return nil, nil
 }
 
-func (t *TODO) UpdateByID(ID string, todo entity.TODO) error {
+// UpdateByID takes ID, td as parameter
+func (t *TODO) UpdateByID(_ string, _ entity.TODO) error {
 	return nil
 }
 
-func (t *TODO) DeleteByID(ID string) error {
+// DeleteByID takes ID
+func (t *TODO) DeleteByID(_ string) error {
 	return nil
 }
