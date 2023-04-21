@@ -2,25 +2,16 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
-	slog "github.com/sirupsen/logrus"
 )
 
-type TODOHandler struct {
-	service TODOService
-	log     *slog.Logger
+type Handler struct {
 }
 
 // NewHandler takes service
-func NewHandler(u TODOService) *TODOHandler {
-	return &TODOHandler{
-		service: u,
-		log:     slog.New(),
-	}
+func NewHandler() *Handler {
+	return &Handler{}
 }
 
-func (h *TODOHandler) Init(gr *gin.RouterGroup) {
-	v1 := gr.Group("/v1")
-	{
-		h.initTODO(v1)
-	}
+func (h *Handler) Init(r *gin.Engine) *gin.RouterGroup {
+	return r.Group("/v1")
 }

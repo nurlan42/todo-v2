@@ -1,9 +1,7 @@
 package cache
 
 import (
-	"database/sql"
 	"fmt"
-	"github.com/nurlan42/todo/internal/config"
 	"github.com/nurlan42/todo/internal/domain/entity"
 
 	"github.com/google/uuid"
@@ -14,7 +12,7 @@ type TODO struct {
 	cache map[string]entity.TODO
 }
 
-func NewTODO(db *sql.DB, c *config.Config) *TODO {
+func NewTODO() *TODO {
 	return &TODO{
 		cache: make(map[string]entity.TODO),
 	}

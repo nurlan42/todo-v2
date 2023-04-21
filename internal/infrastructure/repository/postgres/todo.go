@@ -2,7 +2,6 @@ package postgres
 
 import (
 	"fmt"
-	"github.com/nurlan42/todo/internal/config"
 	"github.com/nurlan42/todo/internal/domain/entity"
 
 	"database/sql"
@@ -15,7 +14,7 @@ type TODO struct {
 	db *sql.DB
 }
 
-func NewTODO(db *sql.DB, c *config.Config) *TODO {
+func NewTODO(db *sql.DB) *TODO {
 	return &TODO{
 		db: db,
 	}

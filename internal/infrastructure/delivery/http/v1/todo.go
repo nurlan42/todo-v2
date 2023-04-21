@@ -11,6 +11,17 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+type TODOHandler struct {
+	service TODOService
+	log     log.Entry
+}
+
+func NewTODOHandler(s TODOService) *TODOHandler {
+	return &TODOHandler{
+		service: s,
+	}
+}
+
 // @title Blueprint Swagger API
 // @version 1.0
 // @description Swagger API for Golang Project Blueprint.
@@ -19,9 +30,9 @@ import (
 // @contact.name API Support
 // @contact.email martin7.heinz@gmail.com
 
-// @BasePath /api/v1/adapter
-func (h *TODOHandler) initTODO(gr *gin.RouterGroup) {
-	td := gr.Group("/adapter")
+// @BasePath /api/v1/todo1
+func (h *TODOHandler) Init(r *gin.RouterGroup) {
+	td := r.Group("/todo")
 	{
 		td.POST("/", h.Create)
 		td.GET("/:id", h.GetByID)

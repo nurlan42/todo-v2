@@ -1,11 +1,11 @@
-package todo
+package repository
 
 import (
 	"github.com/google/uuid"
 	"github.com/nurlan42/todo/internal/domain/entity"
 )
 
-type Service interface {
+type Repository interface {
 	Create(task entity.TODO) error
 	GetByID(ID string) (entity.TODO, error)
 	GetAll() ([]entity.TODO, error)
@@ -14,32 +14,32 @@ type Service interface {
 }
 
 type TODO struct {
-	Serv Service
+	repo Repository
 }
 
-func New(s Service) *TODO {
+func New(r Repository) *TODO {
 	return &TODO{
-		Serv: s,
+		repo: r,
 	}
 }
 
 func (t *TODO) Create(td entity.TODO) error {
 	td.ID = uuid.New().String()
-	return t.Serv.Create(td)
+	return t.repo.Create(td)
 }
 
 func (t *TODO) GetByID(ID string) (entity.TODO, error) {
-	return t.Serv.GetByID(ID)
+	return t.repo.GetByID(ID)
 }
 
 func (t *TODO) GetAll() ([]entity.TODO, error) {
-	return t.Serv.GetAll()
+	return t.repo.GetAll()
 }
 
 func (t *TODO) UpdateByID(ID string, todo entity.TODO) error {
-	return t.Serv.UpdateByID(ID, todo)
+	return t.repo.UpdateByID(ID, todo)
 }
 
 func (t *TODO) DeleteByID(ID string) error {
-	return t.Serv.DeleteByID(ID)
+	return t.repo.DeleteByID(ID)
 }

@@ -13,10 +13,10 @@ type (
 	}
 
 	DB struct {
-		TODO TODO
+		Psql Psql
 	}
 
-	TODO struct {
+	Psql struct {
 		Host     string
 		Port     int
 		UserName string
@@ -34,7 +34,7 @@ type (
 	}
 )
 
-func NewConfig(cfgPath string) (*Config, error) {
+func New(cfgPath string) (*Config, error) {
 	cfg := new(Config)
 
 	if err := cfg.Parse(cfgPath); err != nil {
