@@ -2,13 +2,12 @@ package composites
 
 import (
 	"github.com/nurlan42/todo/config"
+	httprouter "github.com/nurlan42/todo/internal/adapter/delivery/http"
+	handlerv1 "github.com/nurlan42/todo/internal/adapter/delivery/http/v1"
 	"github.com/nurlan42/todo/internal/adapter/repository/psql"
 	"github.com/nurlan42/todo/internal/domain/service"
 	"github.com/nurlan42/todo/internal/server"
 	"github.com/nurlan42/todo/pkg/db"
-
-	httprouter "github.com/nurlan42/todo/internal/adapter/delivery/http"
-	handlerv1 "github.com/nurlan42/todo/internal/adapter/delivery/http/v1"
 )
 
 func New(cfg *config.Config) error {

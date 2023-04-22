@@ -16,12 +16,12 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func Run(chttp config.HTTP, mux *gin.Engine) error {
+func Run(httpCfg config.HTTP, router *gin.Engine) error {
 	httpSrv := http.Server{
-		Addr:         ":" + chttp.Port,
-		Handler:      mux,
-		ReadTimeout:  chttp.ReadTimeout * time.Second,
-		WriteTimeout: chttp.WriteTimeout * time.Second,
+		Addr:         ":" + httpCfg.Port,
+		Handler:      router,
+		ReadTimeout:  httpCfg.ReadTimeout * time.Second,
+		WriteTimeout: httpCfg.WriteTimeout * time.Second,
 	}
 
 	ch := make(chan os.Signal, 1)
