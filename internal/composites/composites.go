@@ -2,12 +2,12 @@ package composites
 
 import (
 	"github.com/nurlan42/todo/config"
-	httprouter "github.com/nurlan42/todo/internal/adapter/delivery/http"
-	handlerv1 "github.com/nurlan42/todo/internal/adapter/delivery/http/v1"
-	"github.com/nurlan42/todo/internal/adapter/repository/psql"
-	"github.com/nurlan42/todo/internal/domain/service"
+	"github.com/nurlan42/todo/internal/adapter/repository"
+	"github.com/nurlan42/todo/internal/domain"
 	"github.com/nurlan42/todo/internal/server"
 	"github.com/nurlan42/todo/pkg/db"
+
+	httprouter "github.com/nurlan42/todo/internal/adapter/delivery/http"
 )
 
 func New(cfg *config.Config) error {
@@ -18,14 +18,9 @@ func New(cfg *config.Config) error {
 		return err
 	}
 
-	router := httprouter.New()
-
-	v1 := router.Group("/v1")
-
-	repo := psql.NewTODO(sqlDB)
-	serv := service.NewTODO(repo)
-	handlerV1 := handlerv1.NewTODO(serv)
-	handlerV1.Init(v1)
+	repo := repository.New(sqlDB)
+	serv := domain.NewServices(repo)
+	router := httprouter.NewHandler(serv)
 
 	if err := server.Run(cfg.HTTP, router); err != nil {
 		return err

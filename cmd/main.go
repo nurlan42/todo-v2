@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/nurlan42/todo/config"
 	"github.com/nurlan42/todo/internal/composites"
+
 	log "github.com/sirupsen/logrus"
 )
 

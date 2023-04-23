@@ -11,23 +11,12 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-type TODOHandler struct {
-	service TODOService
-	log     log.Entry
-}
-
-func NewTODO(s TODOService) *TODOHandler {
-	return &TODOHandler{
-		service: s,
-	}
-}
-
 // Create godoc
 // @Summary creates data in database
 // @Produce json
 // @Success 201
 // @Router /api/v1/adapter [get]
-func (h *TODOHandler) Create(c *gin.Context) {
+func (h *Handler) Create(c *gin.Context) {
 	logg := h.log.WithFields(log.Fields{"publicID": "4c120c2e-2c8b-4204-a54d-79c21d6f4b31"})
 
 	logg.Info("start")
@@ -39,7 +28,7 @@ func (h *TODOHandler) Create(c *gin.Context) {
 		return
 	}
 
-	err := h.service.Create(todo)
+	err := h.services.TODOServ.Create(todo)
 	if err != nil {
 		logg.Error(err)
 		c.JSON(http.StatusBadRequest, err)
@@ -50,12 +39,12 @@ func (h *TODOHandler) Create(c *gin.Context) {
 
 }
 
-func (h *TODOHandler) GetByID(c *gin.Context) {
+func (h *Handler) GetByID(c *gin.Context) {
 	logg := h.log.WithFields(log.Fields{"userID": "userID"})
 
 	id := c.Param("id")
 
-	todo, err := h.service.GetByID(id)
+	todo, err := h.services.TODOServ.GetByID(id)
 	if err != nil {
 		logg.Error(err)
 		return
@@ -64,10 +53,10 @@ func (h *TODOHandler) GetByID(c *gin.Context) {
 	c.JSON(http.StatusOK, todo)
 }
 
-func (h *TODOHandler) GetAll(c *gin.Context) {
+func (h *Handler) GetAll(c *gin.Context) {
 	logg := h.log.WithFields(log.Fields{"userID": "userID"})
 
-	allTODO, err := h.service.GetAll()
+	allTODO, err := h.services.TODOServ.GetAll()
 	if err != nil {
 		logg.Error(err)
 		return
@@ -76,7 +65,7 @@ func (h *TODOHandler) GetAll(c *gin.Context) {
 	c.JSON(http.StatusOK, allTODO)
 }
 
-func (h *TODOHandler) UpdateByID(c *gin.Context) {
+func (h *Handler) UpdateByID(c *gin.Context) {
 	logg := h.log.WithFields(log.Fields{"userID": "userID"})
 
 	todoID := c.Param("id")
@@ -87,7 +76,7 @@ func (h *TODOHandler) UpdateByID(c *gin.Context) {
 		return
 	}
 
-	err := h.service.UpdateByID(todoID, todo)
+	err := h.services.TODOServ.UpdateByID(todoID, todo)
 	if err != nil {
 		logg.Error(err)
 		return
@@ -95,10 +84,10 @@ func (h *TODOHandler) UpdateByID(c *gin.Context) {
 
 	c.Status(http.StatusOK)
 }
-func (h *TODOHandler) DeleteByID(c *gin.Context) {
+func (h *Handler) DeleteByID(c *gin.Context) {
 	id := c.Param("id")
 
-	err := h.service.DeleteByID(id)
+	err := h.services.TODOServ.DeleteByID(id)
 	if err != nil {
 		//	adapter err
 		return
@@ -116,7 +105,7 @@ func (h *TODOHandler) DeleteByID(c *gin.Context) {
 // @contact.email martin7.heinz@gmail.com
 
 // @BasePath /api/v1/todo1
-func (h *TODOHandler) Init(r *gin.RouterGroup) {
+func (h *Handler) initTODO(r *gin.RouterGroup) {
 	td := r.Group("/todo")
 	{
 		td.POST("/", h.Create)
