@@ -1,4 +1,4 @@
-package cache
+package todo
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ type TODO struct {
 	cache map[string]entity.TODO
 }
 
-func NewTODO() *TODO {
+func New() *TODO {
 	return &TODO{
 		cache: make(map[string]entity.TODO),
 	}

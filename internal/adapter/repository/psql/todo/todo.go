@@ -1,20 +1,19 @@
-package psql
+package todo
 
 import (
-	"fmt"
-	"github.com/nurlan42/todo/internal/domain/entity"
-
 	"database/sql"
+	"fmt"
 	"runtime/debug"
 
 	_ "github.com/lib/pq"
+	"github.com/nurlan42/todo/internal/domain/entity"
 )
 
 type TODO struct {
 	db *sql.DB
 }
 
-func NewTODO(db *sql.DB) *TODO {
+func New(db *sql.DB) *TODO {
 	return &TODO{
 		db: db,
 	}

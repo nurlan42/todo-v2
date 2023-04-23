@@ -1,4 +1,4 @@
-package v1
+package todo
 
 import (
 	"fmt"
@@ -11,13 +11,13 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-type TODOHandler struct {
-	service TODOService
+type Handler struct {
+	service Service
 	log     log.Entry
 }
 
-func NewTODO(s TODOService) *TODOHandler {
-	return &TODOHandler{
+func New(s Service) *Handler {
+	return &Handler{
 		service: s,
 	}
 }
@@ -27,7 +27,7 @@ func NewTODO(s TODOService) *TODOHandler {
 // @Produce json
 // @Success 201
 // @Router /api/v1/adapter [get]
-func (h *TODOHandler) Create(c *gin.Context) {
+func (h *Handler) Create(c *gin.Context) {
 	logg := h.log.WithFields(log.Fields{"publicID": "4c120c2e-2c8b-4204-a54d-79c21d6f4b31"})
 
 	logg.Info("start")
@@ -50,7 +50,7 @@ func (h *TODOHandler) Create(c *gin.Context) {
 
 }
 
-func (h *TODOHandler) GetByID(c *gin.Context) {
+func (h *Handler) GetByID(c *gin.Context) {
 	logg := h.log.WithFields(log.Fields{"userID": "userID"})
 
 	id := c.Param("id")
@@ -64,7 +64,7 @@ func (h *TODOHandler) GetByID(c *gin.Context) {
 	c.JSON(http.StatusOK, todo)
 }
 
-func (h *TODOHandler) GetAll(c *gin.Context) {
+func (h *Handler) GetAll(c *gin.Context) {
 	logg := h.log.WithFields(log.Fields{"userID": "userID"})
 
 	allTODO, err := h.service.GetAll()
@@ -76,7 +76,7 @@ func (h *TODOHandler) GetAll(c *gin.Context) {
 	c.JSON(http.StatusOK, allTODO)
 }
 
-func (h *TODOHandler) UpdateByID(c *gin.Context) {
+func (h *Handler) UpdateByID(c *gin.Context) {
 	logg := h.log.WithFields(log.Fields{"userID": "userID"})
 
 	todoID := c.Param("id")
@@ -95,7 +95,7 @@ func (h *TODOHandler) UpdateByID(c *gin.Context) {
 
 	c.Status(http.StatusOK)
 }
-func (h *TODOHandler) DeleteByID(c *gin.Context) {
+func (h *Handler) DeleteByID(c *gin.Context) {
 	id := c.Param("id")
 
 	err := h.service.DeleteByID(id)
@@ -116,7 +116,7 @@ func (h *TODOHandler) DeleteByID(c *gin.Context) {
 // @contact.email martin7.heinz@gmail.com
 
 // @BasePath /api/v1/todo1
-func (h *TODOHandler) Init(r *gin.RouterGroup) {
+func (h *Handler) Init(r *gin.RouterGroup) {
 	td := r.Group("/todo")
 	{
 		td.POST("/", h.Create)

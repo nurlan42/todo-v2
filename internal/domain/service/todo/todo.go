@@ -1,4 +1,4 @@
-package service
+package todo
 
 import (
 	"github.com/google/uuid"
@@ -6,10 +6,10 @@ import (
 )
 
 type TODO struct {
-	repo TODORepository
+	repo Repository
 }
 
-func NewTODO(r TODORepository) *TODO {
+func New(r Repository) *TODO {
 	return &TODO{
 		repo: r,
 	}
