@@ -5,14 +5,14 @@ import (
 
 	"github.com/nurlan42/todo/internal/adapter/repository/cache"
 
-	handlertodo "github.com/nurlan42/todo/internal/adapter/delivery/http/v1/todo"
-	servtodo "github.com/nurlan42/todo/internal/domain/service/todo"
+	handler "github.com/nurlan42/todo/internal/adapter/delivery/http/v1/todo"
+	service "github.com/nurlan42/todo/internal/domain/service/todo"
 )
 
-func NewTODO(db *sql.DB) *handlertodo.Handler {
+func NewTODO(db *sql.DB) *handler.Handler {
 	//repo := psql.NewTODO(db)
 	repo := cache.NewTODO()
-	serv := servtodo.New(repo)
-	handlerV1 := handlertodo.NewTODO(serv)
+	serv := service.New(repo)
+	handlerV1 := handler.New(serv)
 	return handlerV1
 }

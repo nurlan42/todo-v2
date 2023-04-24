@@ -11,7 +11,7 @@ import "github.com/gin-gonic/gin"
 // @contact.email martin7.heinz@gmail.com
 
 // @BasePath /api/v1/todo1
-func InitRoutes(r *gin.RouterGroup, h *TODOHandler) {
+func InitRoutes(r *gin.RouterGroup, h *Handler) {
 	td := r.Group("/todo")
 	{
 		td.POST("/", h.Create)

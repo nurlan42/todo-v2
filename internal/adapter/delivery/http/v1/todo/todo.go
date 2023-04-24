@@ -16,7 +16,7 @@ type Handler struct {
 	log     log.Entry
 }
 
-func NewTODO(s Service) *Handler {
+func New(s Service) *Handler {
 	return &Handler{
 		service: s,
 	}
