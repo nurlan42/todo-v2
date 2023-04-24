@@ -1,4 +1,4 @@
-package service
+package todo
 
 import "github.com/nurlan42/todo/internal/domain/entity"
 
