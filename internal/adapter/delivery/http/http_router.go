@@ -1,22 +1,11 @@
 package http
 
-import (
-	"net/http"
-
-	"github.com/gin-gonic/gin"
-
-	swfiles "github.com/swaggo/files"
-	ginsw "github.com/swaggo/gin-swagger"
-)
+import "github.com/gin-gonic/gin"
 
 func New() *gin.Engine {
-	router := gin.Default()
+	router := gin.New()
 
-	router.GET("/ping", func(c *gin.Context) {
-		c.String(http.StatusOK, "pong")
-	})
+	router.Use(AuthMiddleware)
 
-	router.GET("/swagger/*any", ginsw.WrapHandler(swfiles.Handler))
 	return router
-
 }

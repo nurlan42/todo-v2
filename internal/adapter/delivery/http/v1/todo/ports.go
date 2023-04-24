@@ -1,4 +1,4 @@
-package v1
+package todo
 
 import "github.com/nurlan42/todo/internal/domain/entity"
 
