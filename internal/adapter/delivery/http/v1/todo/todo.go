@@ -12,11 +12,11 @@ import (
 )
 
 type TODOHandler struct {
-	service TODOService
+	service Service
 	log     log.Entry
 }
 
-func NewTODO(s TODOService) *TODOHandler {
+func NewTODO(s Service) *TODOHandler {
 	return &TODOHandler{
 		service: s,
 	}

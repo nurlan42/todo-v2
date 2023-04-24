@@ -2,7 +2,7 @@ package todo
 
 import "github.com/nurlan42/todo/internal/domain/entity"
 
-type TODOService interface {
+type Service interface {
 	Create(task entity.TODO) error
 	GetByID(ID string) (entity.TODO, error)
 	GetAll() ([]entity.TODO, error)
