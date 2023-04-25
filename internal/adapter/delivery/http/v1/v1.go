@@ -3,14 +3,14 @@ package v1
 import (
 	"database/sql"
 	"github.com/gin-gonic/gin"
-	"github.com/nurlan42/todo/internal/adapter/composites"
+	"github.com/nurlan42/todo/internal/adapter/delivery/http/composites"
 	"github.com/nurlan42/todo/internal/adapter/delivery/http/v1/todo"
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func NewHTTPV1Routes(db *sql.DB, router *gin.Engine) {
+func NewHTTPRoutes(db *sql.DB, router *gin.Engine) {
 	routerV1 := router.Group("/v1")
 	{
 		{

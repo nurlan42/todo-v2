@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/gin-gonic/gin"
 	"github.com/nurlan42/todo/config"
-	httprouter "github.com/nurlan42/todo/internal/adapter/delivery/http"
 	v1 "github.com/nurlan42/todo/internal/adapter/delivery/http/v1"
 	"github.com/nurlan42/todo/internal/server"
 	"github.com/nurlan42/todo/pkg/db"
@@ -24,9 +24,9 @@ func main() {
 		//return err
 	}
 
-	router := httprouter.New()
+	router := gin.New()
 
-	v1.NewHTTPV1Routes(sqlDB, router)
+	v1.NewHTTPRoutes(sqlDB, router)
 
 	if err := server.Run(cfg.HTTP, router); err != nil {
 		//return err
