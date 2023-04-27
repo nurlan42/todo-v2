@@ -12,6 +12,7 @@ import (
 const cfgPath = "config.json"
 
 func main() {
+
 	cfg, err := config.New(cfgPath)
 	if err != nil {
 		log.Fatalf("config.New(): %v", err)

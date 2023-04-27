@@ -1,6 +1,6 @@
-#Define variables for the migration
+#Define variables for the migrations
 MIGRATE_CMD=migrate
-MIGRATE_PATH=internal/adapter/repository/psql/migration
+MIGRATE_PATH=internal/migration
 MIGRATE_DATABASE=postgresql://admin:secret@localhost:5432/todo?sslmode=disable
 MIGRATE_VERBOSE=-verbose
 MIGRATE_UP=up

@@ -14,7 +14,7 @@ type TODO struct {
 	db *sql.DB
 }
 
-func NewTODO(db *sql.DB) *TODO {
+func New(db *sql.DB) *TODO {
 	return &TODO{
 		db: db,
 	}
